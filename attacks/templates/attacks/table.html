@@ -31,13 +31,31 @@
                 {{ attack.startTimestamp }}
             </td>
             <td>
-                <!-- create a button that will send a request to stop the attack -->
                 <button type="button" onclick="stopAttacks([{{ attack.id }}])">Stop Attack
             </td>
         </tr>
         {% endfor %}
     </table>
+    <div style="text-align: center;">
+        <button disabled="disabled" onclick="stopAttacks([{% for attack in attacks %}{{ attack.id }}, {% endfor %}])">Stop</button> <!-- TODO: only send the needed IDS -->        
+        <button disabled="disabled">Stop</button>
+
+        <button onclick="window.location.href='/attacks/new_attack/'">Start New Attack</button>
+    </div>
     <script>
+// create an event listener for the checkbox that will enable the stop button when the checkbox is selected
+        var checkboxes = document.getElementsByName('attack_check');
+        var button = document.querySelector('button[disabled]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function () {
+                if (this.checked) {
+                    button.removeAttribute('disabled');
+                } else {
+                    button.setAttribute('disabled', 'disabled');
+                }
+            });
+        }
+
         function stopAttacks(attackIds) {
             fetch('/attacks/stop', {
                 method: 'POST',
