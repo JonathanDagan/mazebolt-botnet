@@ -1,11 +1,16 @@
-<form action="/attacks/" method="post">
-    {% csrf_token %}
-    <label for="attack_name">Attack name: </label>
-    <input id="attack_name" type="text" name="attack_name" value="{{ name }}">
-    
-    <label for="command">Command: </label>
-    <input id="command" type="text" name="command" value="{{ command }}">
-    
-    <input type="submit" value="OK">
-    <input type="button" value="Cancel" onclick="window.location.href='/attacks/'">
+<form action="" method="post">
+    <fieldset>
+        <legend>Form
+            {% csrf_token %}
+            {{ form.as_p }}
+            <!-- <label for="attack_name">Attack name: </label>
+            <input id="attack_name" type="text" name="attack_name" value="{{ name }}">
+            
+            <label for="command">Command: </label>
+            <input id="command" type="text" name="command" value="{{ command }}">
+             -->
+            <input type="submit" value="OK">
+            <input type="button" value="Cancel" onclick="window.location.href='/attacks/'">
+        </legend>
+    </fieldset>
 </form> 
