@@ -1,39 +1,61 @@
-<table style="border: 0.1rem solid">
-    <tr>
-        <th>
-            Attack ID
-        </th>
-        <th>
-            Attack Name
-        </th>
-        <th>
-            Attack Status
-        </th>
-        <th>
-            Attack Start Time
-        </th>
-        <th>
-            Attack Stop
-        </th>
-    </tr>
-    {% for attack in attacks %}
-    <tr>
-        <td>
-            <input type="checkbox" name="attack_check" {% if attack.attack_check %} checked{% endif %}>
-            {{ attack.id }}
-        </td>
-        <td>
-            {{ attack.name }}
-        </td>
-        <td>
-            {{ attack.status }}
-        </td>
-        <td>
-            {{ attack.startTimestamp }}
-        </td>
-        <td>
-            <button>Stop</button>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+<div>
+    <table style="border: 0.1rem solid">
+        <tr>
+            <th>
+                Attack ID
+            </th>
+            <th>
+                Attack Name
+            </th>
+            <th>
+                Attack Status
+            </th>
+            <th>
+                Attack Start Time
+            </th>
+            <th>
+                Attack Stop
+            </th>
+        </tr>
+        {% for attack in attacks %}
+        <tr>
+            <td>
+                <input type="checkbox" name="attack_check" {% if attack.attack_check %} checked{% endif %}>
+                {{ attack.id }}
+            </td>
+            <td>
+                {{ attack.name }}
+            </td>
+            <td>
+                {{ attack.status }}
+            </td>
+            <td>
+                {{ attack.startTimestamp }}
+            </td>
+            <td>
+                <!-- create a button that will send a request to stop the attack -->
+                <button type="button" onclick="stopAttacks([{{ attack.id }}])">Stop Attack
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <script>
+        function stopAttacks(attackIds) {
+            fetch('/attacks/stop', {
+                method: 'POST',
+                body: JSON.stringify({ attack_ids: attackIds }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }} '
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</div>
