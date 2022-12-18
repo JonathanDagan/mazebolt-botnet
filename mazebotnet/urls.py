@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from attacks import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
     path('attacks/', include('attacks.urls')),
     path('new_attack/', include('attacks.urls')), # TODO: if I have enough time switch to modal
 ]
