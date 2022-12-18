@@ -1,12 +1,11 @@
 from django.db import models
 
-# Create your models here.
-
 class Attack(models.Model):
     class AttackStatus(models.TextChoices):
         NEW = 'NEW', 'New'
         RUNNING = 'RUNNING', 'Running'
         DONE = 'DONE', 'Done'
+        STOPPED = 'STOPPED', 'Stopped'
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
