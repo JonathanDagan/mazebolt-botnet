@@ -1,8 +1,7 @@
 <div>
-    <table style="border: 0.1rem solid">
+    <table style="border: 0.1rem solid; border-spacing: 0.5rem; display: inline-table;">
         <tr>
             <th>
-                Attack ID
             </th>
             <th>
                 Attack Name
@@ -21,7 +20,6 @@
         <tr>
             <td>
                 <input type="checkbox" name="attack_check" {% if attack.attack_check %} checked{% endif %}>
-                {{ attack.id }}
             </td>
             <td>
                 {{ attack.name }}

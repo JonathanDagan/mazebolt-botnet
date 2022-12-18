@@ -32,6 +32,18 @@ def new_attack(request):
         form = AttackForm()
     return render(request, 'attacks/new_attack.html', {'form': form})
 
+def start_attack(request, attack_id):
+    attack = Attack.objects.get(id=attack_id)
+    attack.status = Attack.AttackStatus.RUNNING
+    attack.save()
+    return HttpResponseRedirect('/')
+
+def finish_attack(request, attack_id):
+    attack = Attack.objects.get(id=attack_id)
+    attack.status = Attack.AttackStatus.DONE
+    attack.save()
+    return HttpResponseRedirect('/')
+
 def stop_attacks(request):
     attack_ids = json.loads(request.body)['attack_ids']
     print(attack_ids)
