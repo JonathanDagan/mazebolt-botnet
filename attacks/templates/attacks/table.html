@@ -1,0 +1,39 @@
+<table style="border: 0.1rem solid">
+    <tr>
+        <th>
+            Attack ID
+        </th>
+        <th>
+            Attack Name
+        </th>
+        <th>
+            Attack Status
+        </th>
+        <th>
+            Attack Start Time
+        </th>
+        <th>
+            Attack Stop
+        </th>
+    </tr>
+    {% for attack in attacks %}
+    <tr>
+        <td>
+            <input type="checkbox" name="attack_check" {% if attack.attack_check %} checked{% endif %}>
+            {{ attack.id }}
+        </td>
+        <td>
+            {{ attack.name }}
+        </td>
+        <td>
+            {{ attack.status }}
+        </td>
+        <td>
+            {{ attack.startTimestamp }}
+        </td>
+        <td>
+            <button>Stop</button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
